@@ -1,0 +1,23 @@
+#C Markdown Project
+<hr>
+
+##Text Styles
+this is *bold* text <br>
+this is /italik/ text <br>
+this is _underlined_ text <br>
+this is -deleted- text <br>
+
+##List
+
+###ul list
+.Python
+.C
+
+###ol list
+,HTML
+,CSS
+,JS
+
+##Links and Images
+$https://github.com/kyshi Github <br>
+!doge_pistol.png
