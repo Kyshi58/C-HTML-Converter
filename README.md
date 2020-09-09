@@ -2,7 +2,7 @@
 
 
 [![License](https://img.shields.io/badge/license-MIT-green)](https://img.shields.io/badge/license-MIT-green)
-[![Version](https://img.shields.io/badge/version-0.1-blue)](https://img.shields.io/badge/version-0.1-blue)
+[![Version](https://img.shields.io/badge/version-0.2-blue)](https://img.shields.io/badge/version-0.2-blue)
 [![Status](https://img.shields.io/badge/status-alpha-red)](https://img.shields.io/badge/status-alpha-red)
 
 ## What is C-HTML Converter?

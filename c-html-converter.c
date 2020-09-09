@@ -15,10 +15,10 @@ int main(){
 
     FILE *filep = fopen(file_txt, "r");
     FILE *filehtml = fopen(file_html, "w");
-
-    charachter = getc(filep);
+        
     do
     {
+        //Text Styles
         if (charachter == '*')
         {            
             fputs("<b>", filehtml);
@@ -76,6 +76,35 @@ int main(){
             charachter = getc(filep);
         }
 
+        //Escape String
+        else if (charachter == '\\')
+        {
+            charachter = getc(filep);
+            fputc(charachter, filehtml);
+            charachter = getc(filep);
+        }
+
+        //Comment Lines
+        else if (charachter == '+')
+        {
+            do
+            {
+                charachter = getc(filep);
+            } while (charachter != '\n' && charachter != EOF);
+            charachter = getc(filep);
+        }
+
+        else if (charachter == '%')
+        {
+            do
+            {
+                charachter = getc(filep);
+            } while (charachter != '%' && charachter != EOF);
+            charachter = getc(filep);
+            charachter = getc(filep);
+        }
+        
+        //Headers
         else if (charachter == '#')
         {
                 charachter = getc(filep);
@@ -118,19 +147,33 @@ int main(){
                 charachter = getc(filep); 
         }
         
+        //Link
         else if (charachter == '$')
         {
             fputs("<a href='", filehtml);
             charachter = getc(filep);
             do
-            {
+            {  
                 fputc(charachter, filehtml);
                 charachter = getc(filep);
             } while (charachter != ' ');
             fputs("'>", filehtml);
+            
             charachter = getc(filep);
             do
             {
+                //For Space in Link
+                if (charachter == '_')
+                {
+                    charachter = ' ';
+                    if (getc(filep) == '_')
+                    {
+                        charachter = '_';
+                    }
+                    else{
+                        fseek(filep, -1, SEEK_CUR);
+                    }
+                }
                 fputc(charachter, filehtml);
                 charachter = getc(filep);
             } while (charachter != ' ' && charachter != '\n' && charachter != EOF);
@@ -138,6 +181,7 @@ int main(){
             
         }
 
+        //Image
         else if (charachter == '!')
         {
             fputs("<img src='", filehtml);
@@ -150,6 +194,8 @@ int main(){
             fputs("'>", filehtml);
         }
 
+
+        //Lists
         else if (charachter == '.')
         {
             if (ul_counter == 0)
@@ -175,6 +221,7 @@ int main(){
             
         }
         
+        //End of lists and normal texts
         else
         {
             if (ul_counter == 1 && charachter=='\n' && getc(filep)=='.')
